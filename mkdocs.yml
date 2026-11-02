@@ -1,0 +1,166 @@
+site_name: Angular Playbook
+site_description: A senior engineer's Angular playbook — Angular 17 → 22, every concept with code, output, diagrams, interview questions and a full food-delivery case study.
+site_author: Angular Playbook
+repo_url: https://github.com/khiruashish/angular-playbook
+repo_name: khiruashish/angular-playbook
+edit_uri: edit/main/docs/
+copyright: Angular Playbook — built with MkDocs Material
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: en
+  icon:
+    logo: simple/angular
+    repo: fontawesome/brands/github
+  favicon: assets/favicon.svg
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle: { icon: material/weather-night, name: Switch to dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle: { icon: material/weather-sunny, name: Switch to light mode }
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+    - content.action.edit
+
+extra_css:
+  - stylesheets/3d.css
+extra_javascript:
+  - javascripts/tilt.js
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: [".", "examples/food-delivery-app"]
+      check_paths: true
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - getting-started/index.md
+      - Node.js, npm & ng: getting-started/node-npm-ng.md
+      - Install & Setup: getting-started/setup.md
+      - CLI Command Reference: getting-started/cli-commands.md
+      - Project Structure: getting-started/project-structure.md
+      - Versions 17 → 22: getting-started/versions.md
+  - Core Concepts:
+      - core/index.md
+      - Architecture & Bootstrapping: core/architecture.md
+      - Components: core/components.md
+      - Templates & Control Flow: core/templates.md
+      - Directives: core/directives.md
+      - Pipes: core/pipes.md
+      - Dependency Injection: core/dependency-injection.md
+      - Lifecycle Hooks: core/lifecycle.md
+      - Component Communication: core/communication.md
+      - Change Detection & Zoneless: core/change-detection.md
+      - Styling & Encapsulation: core/styling.md
+      - Routing & Navigation: core/routing.md
+      - Forms: core/forms.md
+      - HTTP Client: core/http.md
+  - Reactivity:
+      - reactivity/index.md
+      - Signals: reactivity/signals.md
+      - RxJS: reactivity/rxjs.md
+      - State Management: reactivity/state-management.md
+  - Security:
+      - security/index.md
+      - Authentication: security/authentication.md
+      - Authorization: security/authorization.md
+      - Web Security: security/web-security.md
+  - Advanced:
+      - advanced/index.md
+      - Performance: advanced/performance.md
+      - SSR & Hydration: advanced/ssr.md
+      - Animations: advanced/animations.md
+      - i18n: advanced/i18n.md
+      - Accessibility: advanced/a11y.md
+      - PWA & Service Worker: advanced/pwa.md
+      - Error Handling & Logging: advanced/error-handling.md
+      - Libraries & Monorepos: advanced/libraries-monorepo.md
+      - Micro Frontends: advanced/micro-frontends.md
+      - Web Workers & Elements: advanced/web-workers-elements.md
+      - Best Practices (15 yrs): advanced/best-practices.md
+  - Testing:
+      - testing/index.md
+      - Unit Testing (Vitest): testing/unit-testing.md
+      - Component & Integration: testing/component-testing.md
+      - E2E (Playwright): testing/e2e.md
+  - Build & Deploy:
+      - deploy/index.md
+      - Environments (dev/qa/uat/prod): deploy/environments.md
+      - Build Commands: deploy/build.md
+      - Docker & Nginx: deploy/docker-nginx.md
+      - CI/CD Pipeline: deploy/ci-cd.md
+      - Cloud Hosting: deploy/cloud.md
+  - Food Delivery App:
+      - case-study/index.md
+      - UI Design: case-study/ui-design.md
+      - API Contract: case-study/api-contract.md
+      - Code Walkthrough: case-study/code-walkthrough.md
+  - Interview:
+      - interview/index.md
+      - Beginner: interview/beginner.md
+      - Intermediate: interview/intermediate.md
+      - Advanced: interview/advanced.md
+      - Expert & Scenarios: interview/expert.md
+      - Coding Challenges: interview/coding-challenges.md
+  - Cheat Sheet: cheatsheet.md

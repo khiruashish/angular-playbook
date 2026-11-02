@@ -1,0 +1,42 @@
+{
+  "name": "food-delivery-app",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "start:qa": "ng serve --configuration qa",
+    "build:dev": "ng build --configuration development",
+    "build:qa": "ng build --configuration qa",
+    "build:uat": "ng build --configuration uat",
+    "build:prod": "ng build --configuration production",
+    "test:ci": "ng test --watch=false --coverage",
+    "lint:types": "tsc -p tsconfig.app.json --noEmit",
+    "e2e": "playwright test"
+  },
+  "private": true,
+  "packageManager": "npm@10.9.9",
+  "dependencies": {
+    "@angular/common": "^22.2.0",
+    "@angular/compiler": "^22.2.0",
+    "@angular/core": "^22.2.0",
+    "@angular/forms": "^22.2.0",
+    "@angular/platform-browser": "^22.2.0",
+    "@angular/router": "^22.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.2.5",
+    "@angular/cli": "^22.2.5",
+    "@angular/compiler-cli": "^22.2.0",
+    "@playwright/test": "^1.63.0",
+    "@vitest/coverage-v8": "^5.1.0",
+    "jsdom": "^30.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.0"
+  }
+}
