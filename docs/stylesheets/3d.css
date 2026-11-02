@@ -120,3 +120,6 @@
 
 /* Interview Q badge */
 .md-typeset .q { display: inline-block; background: var(--ng-grad); color: #fff; border-radius: 8px; padding: 0 .5em; font-weight: 700; margin-right: .3em; }
+
+/* Gradient-clipped h1 would render the permalink ¶ huge: hide it on titles */
+.md-typeset h1 .headerlink { display: none; }

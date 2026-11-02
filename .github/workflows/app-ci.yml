@@ -1,0 +1,85 @@
+name: Food app CI
+
+on:
+  push:
+    branches: [main]
+    paths: ['examples/food-delivery-app/**', '.github/workflows/app-ci.yml']
+  pull_request:
+    paths: ['examples/food-delivery-app/**', '.github/workflows/app-ci.yml']
+
+defaults:
+  run:
+    working-directory: examples/food-delivery-app
+
+concurrency:
+  group: app-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: examples/food-delivery-app/package-lock.json
+      - run: npm ci
+      - run: npm run lint:types
+      - run: npm run test:ci
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: examples/food-delivery-app/coverage
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [qa, uat, production]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: examples/food-delivery-app/package-lock.json
+      - run: npm ci
+      - run: npx ng build --configuration ${{ matrix.configuration }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ matrix.configuration }}
+          path: examples/food-delivery-app/dist/food-delivery-app
+
+  e2e:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: examples/food-delivery-app/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+        env:
+          CI: 'true'
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: examples/food-delivery-app/playwright-report
+
+  docker:
+    if: github.ref == 'refs/heads/main'
+    needs: [build, e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production image
+        run: docker build --build-arg CONFIGURATION=production -t food-web:${{ github.sha }} .
+      # Push to your registry (ECR / GHCR / ACR) and deploy qa → uat → prod with environment approvals.

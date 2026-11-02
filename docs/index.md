@@ -35,7 +35,7 @@ It ends with a **complete food-delivery app** that is built, tested and deployed
 <a class="tilt" href="testing/"><span class="ico">🧪</span><b>Testing</b><span>Vitest, TestBed, HttpTestingController, harnesses, Playwright</span></a>
 <a class="tilt" href="deploy/"><span class="ico">📦</span><b>Build &amp; Deploy</b><span>dev / qa / uat / prod, Docker, Nginx, CI/CD, cloud</span></a>
 <a class="tilt" href="case-study/"><span class="ico">🍔</span><b>Food Delivery App</b><span>UI design, REST API contract, full source code walkthrough</span></a>
-<a class="tilt" href="interview/"><span class="ico">🎯</span><b>Interview Questions</b><span>200+ questions from beginner to architect, with code and output</span></a>
+<a class="tilt" href="interview/"><span class="ico">🎯</span><b>Interview Questions</b><span>220+ questions from beginner to architect, with code and output</span></a>
 </div>
 
 ## How to read this playbook
@@ -50,7 +50,7 @@ It ends with a **complete food-delivery app** that is built, tested and deployed
 !!! tip "The code is real"
     Every snippet in the [Food Delivery App](case-study/index.md) chapter comes from
     `examples/food-delivery-app`, a working **Angular 22.2** project. It builds for dev/qa/uat/prod,
-    has **39 unit tests (Vitest)** and **Playwright E2E tests**, and ships with a Dockerfile and Nginx config.
+    has **52 unit tests (Vitest)** and **Playwright E2E tests**, and ships with a Dockerfile and Nginx config.
 
     ```bash
     cd examples/food-delivery-app && npm ci && npm start   # http://localhost:4200

@@ -82,7 +82,7 @@ ng build ui-kit                       # build a library (ng-packagr)
 ng test                               # [t]  Vitest in watch mode (v21+ default)
 ng test --watch=false                 # single run (CI)
 ng test --coverage                    # coverage report (needs @vitest/coverage-v8)
-ng test --include "src/app/features/cart/**"
+ng test --include "src/app/features/cart/**/*.spec.ts"   # glob must match spec files
 ng test --browsers chromium           # run in a real browser (Vitest browser mode + playwright)
 ng lint                               # needs @angular-eslint (ng add @angular-eslint/schematics)
 ng e2e                                # runs the configured e2e builder (ng add playwright-ng-schematics)
