@@ -2,41 +2,90 @@
    Angular Playbook — "3D" theme layer on top of MkDocs Material
    Depth via perspective transforms, layered shadows, glass surfaces.
    ========================================================================== */
-:root {
-  --ng-red: #dd0031;
-  --ng-pink: #e40035;
-  --ng-purple: #7b2cbf;
-  --ng-violet: #9d4edd;
-  --ng-grad: linear-gradient(135deg, #dd0031 0%, #c3002f 30%, #7b2cbf 100%);
-  --md-primary-fg-color: #c3002f;
-  --md-primary-fg-color--light: #e40035;
-  --md-primary-fg-color--dark: #8f0022;
-  --md-accent-fg-color: #9d4edd;
-  --depth-1: 0 1px 2px rgba(15, 23, 42, .06), 0 2px 6px rgba(15, 23, 42, .06);
-  --depth-2: 0 4px 10px rgba(15, 23, 42, .08), 0 12px 28px rgba(15, 23, 42, .10);
-  --depth-3: 0 10px 20px rgba(15, 23, 42, .12), 0 30px 60px rgba(123, 44, 191, .18);
+/* --------------------------------------------------------------------------
+   Palette: "calm indigo + teal". Chosen for long reading sessions:
+   - off-white / dim-navy backgrounds instead of pure white / pure black (less glare & halation)
+   - every text colour meets WCAG AAA (>= 7:1) on its background, in both schemes
+   - no red as a main colour (red reads as "error" and is tiring at large areas);
+     indigo + teal stay distinguishable for common colour-vision deficiencies
+   -------------------------------------------------------------------------- */
+:root, [data-md-color-scheme="default"] {
+  --pb-bg: #f7f8fb;            /* page */
+  --pb-surface: #ffffff;       /* cards, tables */
+  --pb-text: #1e293b;          /* 13.8:1 */
+  --pb-muted: #475569;         /* 7.1:1 */
+  --pb-heading: #1e1b4b;       /* 15:1 */
+  --pb-primary: #4338ca;       /* links, 7.4:1 */
+  --pb-primary-soft: #eef2ff;
+  --pb-teal: #0f766e;          /* decorative accent */
+  --pb-teal-text: #115e59;     /* teal used as text, 7.6:1 */
+  --pb-border: rgba(30, 41, 59, .12);
+  --pb-code-bg: #eef1f7;       /* code text 12.9:1 */
+  --ng-grad: linear-gradient(135deg, #1e1b4b 0%, #3730a3 55%, #115e59 100%);   /* white text >= 7.5:1 */
+  --ng-grad-soft: linear-gradient(90deg, #4338ca, #0f766e);                   /* thin rules & borders */
+  --md-primary-fg-color: #3730a3;
+  --md-primary-fg-color--light: #4f46e5;
+  --md-primary-fg-color--dark: #1e1b4b;
+  --md-accent-fg-color: #0f766e;
+  --md-default-bg-color: var(--pb-bg);
+  --md-default-fg-color: var(--pb-text);
+  --md-default-fg-color--light: var(--pb-muted);
+  --md-typeset-color: var(--pb-text);
+  --md-typeset-a-color: var(--pb-primary);
+  --md-code-bg-color: var(--pb-code-bg);
+  --md-code-fg-color: #1e293b;
+  --depth-1: 0 1px 2px rgba(15, 23, 42, .05), 0 2px 6px rgba(15, 23, 42, .05);
+  --depth-2: 0 4px 10px rgba(15, 23, 42, .07), 0 12px 28px rgba(15, 23, 42, .08);
+  --depth-3: 0 10px 20px rgba(15, 23, 42, .10), 0 30px 60px rgba(55, 48, 163, .16);
 }
 [data-md-color-scheme="slate"] {
-  --md-default-bg-color: #0b1020;
-  --md-code-bg-color: #11172b;
-  --depth-1: 0 1px 2px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.4);
-  --depth-2: 0 6px 14px rgba(0,0,0,.5), 0 16px 34px rgba(0,0,0,.45);
-  --depth-3: 0 12px 24px rgba(0,0,0,.6), 0 30px 70px rgba(157, 78, 221, .25);
+  --pb-bg: #121826;            /* dim navy, not pure black */
+  --pb-surface: #1a2131;
+  --pb-text: #e2e8f0;          /* 14.4:1 (not pure white: less halation) */
+  --pb-muted: #a7b0c0;         /* 8.1:1 */
+  --pb-heading: #e0e7ff;
+  --pb-primary: #a5b4fc;       /* 8.9:1 */
+  --pb-primary-soft: rgba(99, 102, 241, .16);
+  --pb-teal: #5eead4;
+  --pb-teal-text: #5eead4;     /* 12:1 */
+  --pb-border: rgba(226, 232, 240, .10);
+  --pb-code-bg: #161d2b;       /* code text 13:1 */
+  --md-default-bg-color: var(--pb-bg);
+  --md-default-fg-color: var(--pb-text);
+  --md-default-fg-color--light: var(--pb-muted);
+  --md-typeset-color: var(--pb-text);
+  --md-typeset-a-color: var(--pb-primary);
+  --md-accent-fg-color: #5eead4;
+  --md-code-bg-color: var(--pb-code-bg);
+  --md-code-fg-color: #dbe2ee;
+  --depth-1: 0 1px 2px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.35);
+  --depth-2: 0 6px 14px rgba(0,0,0,.45), 0 16px 34px rgba(0,0,0,.40);
+  --depth-3: 0 12px 24px rgba(0,0,0,.55), 0 30px 70px rgba(99, 102, 241, .18);
 }
+
+/* --------------------------------------------------------------------------
+   Typography: 17px body, 1.7 line height, comfortable measure
+   -------------------------------------------------------------------------- */
+.md-typeset { font-size: .85rem; line-height: 1.7; color: var(--pb-text); }
+.md-typeset p, .md-typeset li { max-width: 46rem; }       /* ~75 characters per line */
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 { color: var(--pb-heading); letter-spacing: -.01em; }
+.md-typeset h2 { font-size: 1.45em; font-weight: 700; margin-top: 2em; }
+.md-typeset h3 { font-size: 1.15em; font-weight: 650; }
+.md-typeset a { text-underline-offset: .18em; }
+.md-typeset a:hover { text-decoration: underline; }
+.md-typeset pre > code, .md-typeset .highlight code { font-size: .82rem; line-height: 1.65; }
+.md-nav { font-size: .74rem; }
+.md-nav__link--active, .md-nav__link:hover { color: var(--pb-primary); }
 
 /* Header: gradient + glass */
 .md-header { background: var(--ng-grad); box-shadow: var(--depth-2); }
-.md-tabs { background: linear-gradient(90deg, #a10028, #6a24a8); }
+.md-tabs { background: #23205e; }
+[data-md-color-scheme="slate"] .md-tabs { background: #181640; }
 .md-header__title { font-weight: 800; letter-spacing: .2px; }
 
-/* Headings with subtle extrusion */
-.md-typeset h1 {
-  font-weight: 900;
-  background: var(--ng-grad);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  text-shadow: 0 1px 0 rgba(255,255,255,.04);
-}
-.md-typeset h2 { border-bottom: 2px solid transparent; border-image: var(--ng-grad) 1; padding-bottom: .2em; }
+/* Headings: solid, high-contrast colour (gradient text is pretty but harder to read) */
+.md-typeset h1 { font-weight: 800; font-size: 2em; color: var(--pb-heading); }
+.md-typeset h2 { border-bottom: 2px solid transparent; border-image: var(--ng-grad-soft) 1; padding-bottom: .25em; }
 
 /* Code blocks float above the page */
 .md-typeset pre > code { border-radius: 12px; }
@@ -71,10 +120,10 @@
   content: ""; position: absolute; inset: -50%; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.25), transparent 40%);
   pointer-events: none;
 }
-.md-typeset .hero h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; font-size: 2.6rem; margin: 0 0 .5rem; text-shadow: 0 2px 0 #8f0022, 0 4px 0 #6a1f9e, 0 10px 20px rgba(0,0,0,.35); }
+.md-typeset .hero h1 { color: #fff; background: none; -webkit-text-fill-color: #fff; font-size: 2.6rem; margin: 0 0 .5rem; text-shadow: 0 2px 0 #1e1b4b, 0 4px 0 #134e4a, 0 10px 20px rgba(0,0,0,.35); }
 .hero p { font-size: 1.05rem; opacity: .95; }
 .hero .md-button { color: #fff; border-color: rgba(255,255,255,.8); margin: .3rem .4rem .3rem 0; backdrop-filter: blur(6px); }
-.hero .md-button--primary { background: #fff; color: #c3002f; border-color: #fff; }
+.hero .md-button--primary { background: #fff; color: #3730a3; border-color: #fff; }
 @media (max-width: 760px) { .hero { grid-template-columns: 1fr; padding: 2rem 1.2rem; } .md-typeset .hero h1 { font-size: 2rem; } }
 
 /* Rotating 3D Angular "shield" cube */
@@ -95,20 +144,20 @@
 .cards3d { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); margin: 1.5rem 0; perspective: 1000px; }
 .md-typeset .cards3d a.tilt {
   display: block; position: relative; padding: 1.2rem 1.1rem; border-radius: 18px; color: var(--md-default-fg-color);
-  background: var(--md-default-bg-color); border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--pb-surface); border: 1px solid var(--pb-border);
   box-shadow: var(--depth-2); transform-style: preserve-3d; transition: transform .15s ease-out, box-shadow .25s;
 }
 .md-typeset .cards3d a.tilt:hover { box-shadow: var(--depth-3); }
 .cards3d .tilt .ico { font-size: 2rem; display: block; transform: translateZ(40px); }
 .cards3d .tilt b { display: block; margin: .4rem 0 .2rem; font-size: 1rem; transform: translateZ(30px); }
-.cards3d .tilt span { font-size: .78rem; opacity: .8; display: block; transform: translateZ(20px); }
-.cards3d .tilt::before { content: ""; position: absolute; inset: 0; border-radius: 18px; padding: 1px; background: var(--ng-grad);
+.cards3d .tilt span { font-size: .78rem; color: var(--pb-muted); display: block; transform: translateZ(20px); }
+.cards3d .tilt::before { content: ""; position: absolute; inset: 0; border-radius: 18px; padding: 1.5px; background: var(--ng-grad-soft);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .2s; }
 .cards3d .tilt:hover::before { opacity: 1; }
 
 /* Version timeline */
-.timeline3d { border-left: 4px solid transparent; border-image: var(--ng-grad) 1; padding-left: 1.2rem; }
-.timeline3d > p > strong:first-child { color: var(--md-primary-fg-color); }
+.timeline3d { border-left: 4px solid transparent; border-image: var(--ng-grad-soft) 1; padding-left: 1.2rem; }
+.timeline3d > p > strong:first-child { color: var(--pb-teal-text); }
 
 /* "Output" blocks */
 .md-typeset .admonition.output, .md-typeset details.output { border-left-color: #16a34a; }
@@ -118,7 +167,7 @@
 /* Interview Q badge */
 .md-typeset .q { display: inline-block; background: var(--ng-grad); color: #fff; border-radius: 8px; padding: 0 .5em; font-weight: 700; margin-right: .3em; }
 
-/* Gradient-clipped h1 would render the permalink ¶ huge: hide it on titles */
+/* Hide the permalink ¶ on page titles */
 .md-typeset h1 .headerlink { display: none; }
 
 /* ==========================================================================
@@ -127,26 +176,26 @@
    that in muted grey, which is hard to read. Bigger type, high-contrast code
    chips, raised rows.
    ========================================================================== */
-:root {
-  --tbl-code-fg: #9b0027;
-  --tbl-code-bg: #fff1f4;
-  --tbl-code-border: #f7c6d1;
-  --tbl-row-alt: rgba(123, 44, 191, .035);
-  --tbl-row-hover: rgba(221, 0, 49, .06);
-  --tbl-border: rgba(15, 23, 42, .09);
+:root, [data-md-color-scheme="default"] {
+  --tbl-code-fg: #3730a3;           /* 8.9:1 on chip */
+  --tbl-code-bg: #eef2ff;
+  --tbl-code-border: #c7d2fe;
+  --tbl-row-alt: rgba(67, 56, 202, .035);
+  --tbl-row-hover: rgba(15, 118, 110, .07);
+  --tbl-border: rgba(30, 41, 59, .10);
 }
 [data-md-color-scheme="slate"] {
-  --tbl-code-fg: #ffb3c4;
-  --tbl-code-bg: rgba(228, 0, 53, .16);
-  --tbl-code-border: rgba(255, 140, 170, .35);
-  --tbl-row-alt: rgba(157, 78, 221, .07);
-  --tbl-row-hover: rgba(228, 0, 53, .13);
-  --tbl-border: rgba(255, 255, 255, .08);
+  --tbl-code-fg: #c7d2fe;           /* 8.9:1 on chip */
+  --tbl-code-bg: rgba(99, 102, 241, .18);
+  --tbl-code-border: rgba(165, 180, 252, .30);
+  --tbl-row-alt: rgba(165, 180, 252, .045);
+  --tbl-row-hover: rgba(94, 234, 212, .08);
+  --tbl-border: rgba(226, 232, 240, .08);
 }
 .md-typeset__scrollwrap { margin: 1.4em 0; padding: 4px 6px 14px; perspective: 1400px; }
 .md-typeset__table { display: block; }
 .md-typeset table:not([class]) {
-  font-size: .78rem; line-height: 1.55; border: 1px solid var(--tbl-border); border-collapse: separate; border-spacing: 0;
+  font-size: .8rem; line-height: 1.6; background: var(--pb-surface); border: 1px solid var(--tbl-border); border-collapse: separate; border-spacing: 0;
   border-radius: 14px; overflow: hidden; box-shadow: var(--depth-2);
   transform: rotateX(1.2deg); transform-origin: top center; transition: transform .35s ease, box-shadow .35s ease;
 }
@@ -160,7 +209,7 @@
 }
 .md-typeset table:not([class]) tbody tr:nth-child(even) { background: var(--tbl-row-alt); }
 .md-typeset table:not([class]) tbody tr { transition: background-color .15s, box-shadow .15s; }
-.md-typeset table:not([class]) tbody tr:hover { background: var(--tbl-row-hover); box-shadow: inset 4px 0 0 var(--md-primary-fg-color); }
+.md-typeset table:not([class]) tbody tr:hover { background: var(--tbl-row-hover); box-shadow: inset 4px 0 0 var(--pb-teal); }
 .md-typeset table:not([class]) td:first-child { font-weight: 600; }
 
 /* Code chips inside tables: full size, high contrast, slightly raised */
@@ -183,13 +232,13 @@
 }
 .diagram3d__card {
   position: relative; border-radius: 18px; padding: 2.4rem 1rem 1rem; background:
-    linear-gradient(var(--md-default-bg-color), var(--md-default-bg-color)) padding-box,
-    var(--ng-grad) border-box;
-  border: 2px solid transparent; box-shadow: var(--depth-2), 0 18px 0 -10px rgba(123, 44, 191, .18);
+    linear-gradient(var(--pb-surface), var(--pb-surface)) padding-box,
+    var(--ng-grad-soft) border-box;
+  border: 2px solid transparent; box-shadow: var(--depth-2), 0 18px 0 -10px rgba(55, 48, 163, .16);
   transform: rotateX(3deg) translateZ(0); transform-origin: top center; transition: transform .4s ease, box-shadow .4s ease;
   cursor: zoom-in;
 }
-.diagram3d:hover .diagram3d__card { transform: rotateX(0) translateY(-4px); box-shadow: var(--depth-3), 0 22px 0 -10px rgba(123, 44, 191, .22); }
+.diagram3d:hover .diagram3d__card { transform: rotateX(0) translateY(-4px); box-shadow: var(--depth-3), 0 22px 0 -10px rgba(55, 48, 163, .2); }
 .diagram3d__bar {
   position: absolute; top: 0; left: 0; right: 0; height: 1.9rem; display: flex; align-items: center; gap: .5rem;
   padding: 0 .7rem; border-radius: 16px 16px 0 0; background: var(--ng-grad); color: #fff; font-size: .68rem; font-weight: 700;
@@ -231,3 +280,8 @@ body.diagram3d-open { overflow: hidden; }
   .diagram3d.is-expanded { animation: none; }
 }
 @media print { .diagram3d__bar, .diagram3d__hint { display: none; } .diagram3d__card { transform: none; box-shadow: none; } }
+
+/* Announcement bar: keep light text on its dark background (it otherwise inherits the body text colour) */
+.md-banner { background: #1e1b4b; color: #e0e7ff; }
+.md-banner .md-typeset, .md-banner strong { color: inherit; }
+.md-banner strong { color: #ffffff; }
