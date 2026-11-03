@@ -50,11 +50,8 @@
 /* Admonitions / tabs / tables lifted */
 .md-typeset .admonition, .md-typeset details { border-radius: 12px; box-shadow: var(--depth-1); border-width: 0 0 0 4px; }
 .md-typeset .tabbed-set { border-radius: 12px; box-shadow: var(--depth-1); padding: 0 .6em .4em; }
-.md-typeset table:not([class]) { border-radius: 12px; overflow: hidden; box-shadow: var(--depth-1); }
-.md-typeset table:not([class]) th { background: var(--ng-grad); color: #fff; }
 
 /* Mermaid diagrams on a card */
-.md-typeset .mermaid { background: var(--md-default-bg-color); border-radius: 14px; box-shadow: var(--depth-2); padding: 1rem; }
 
 /* Images (screenshots) get a device-like frame and 3D tilt */
 .md-typeset img.screen {
@@ -123,3 +120,114 @@
 
 /* Gradient-clipped h1 would render the permalink ¶ huge: hide it on titles */
 .md-typeset h1 .headerlink { display: none; }
+
+/* ==========================================================================
+   Readable 3D tables
+   Material's defaults render table text at .64rem and inline code at ~85% of
+   that in muted grey, which is hard to read. Bigger type, high-contrast code
+   chips, raised rows.
+   ========================================================================== */
+:root {
+  --tbl-code-fg: #9b0027;
+  --tbl-code-bg: #fff1f4;
+  --tbl-code-border: #f7c6d1;
+  --tbl-row-alt: rgba(123, 44, 191, .035);
+  --tbl-row-hover: rgba(221, 0, 49, .06);
+  --tbl-border: rgba(15, 23, 42, .09);
+}
+[data-md-color-scheme="slate"] {
+  --tbl-code-fg: #ffb3c4;
+  --tbl-code-bg: rgba(228, 0, 53, .16);
+  --tbl-code-border: rgba(255, 140, 170, .35);
+  --tbl-row-alt: rgba(157, 78, 221, .07);
+  --tbl-row-hover: rgba(228, 0, 53, .13);
+  --tbl-border: rgba(255, 255, 255, .08);
+}
+.md-typeset__scrollwrap { margin: 1.4em 0; padding: 4px 6px 14px; perspective: 1400px; }
+.md-typeset__table { display: block; }
+.md-typeset table:not([class]) {
+  font-size: .78rem; line-height: 1.55; border: 1px solid var(--tbl-border); border-collapse: separate; border-spacing: 0;
+  border-radius: 14px; overflow: hidden; box-shadow: var(--depth-2);
+  transform: rotateX(1.2deg); transform-origin: top center; transition: transform .35s ease, box-shadow .35s ease;
+}
+.md-typeset table:not([class]):hover { transform: none; box-shadow: var(--depth-3); }
+.md-typeset table:not([class]) th {
+  background: var(--ng-grad); color: #fff; font-size: .8rem; font-weight: 700; letter-spacing: .2px;
+  padding: .85em 1.1em; text-shadow: 0 1px 1px rgba(0, 0, 0, .25); border: 0;
+}
+.md-typeset table:not([class]) td {
+  padding: .8em 1.1em; color: var(--md-default-fg-color); border-top: 1px solid var(--tbl-border); vertical-align: middle;
+}
+.md-typeset table:not([class]) tbody tr:nth-child(even) { background: var(--tbl-row-alt); }
+.md-typeset table:not([class]) tbody tr { transition: background-color .15s, box-shadow .15s; }
+.md-typeset table:not([class]) tbody tr:hover { background: var(--tbl-row-hover); box-shadow: inset 4px 0 0 var(--md-primary-fg-color); }
+.md-typeset table:not([class]) td:first-child { font-weight: 600; }
+
+/* Code chips inside tables: full size, high contrast, slightly raised */
+.md-typeset table:not([class]) code {
+  font-size: .92em; font-weight: 600; color: var(--tbl-code-fg); background: var(--tbl-code-bg);
+  border: 1px solid var(--tbl-code-border); border-radius: 6px; padding: .12em .45em;
+  box-shadow: 0 1px 0 var(--tbl-code-border), 0 2px 4px rgba(0, 0, 0, .06);
+  word-break: normal; overflow-wrap: anywhere; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.md-typeset table:not([class]) th code { color: #fff; background: rgba(255, 255, 255, .18); border-color: rgba(255, 255, 255, .35); }
+/* Inline code in body text: a little larger and clearer too */
+.md-typeset :not(pre) > code { font-size: .88em; }
+
+/* ==========================================================================
+   3D, expandable diagrams (structure added by javascripts/diagrams.js)
+   ========================================================================== */
+.md-typeset figure.diagram3d {
+  /* override Material's shrink-to-fit <figure> styles */
+  display: block; width: auto; max-width: none; position: relative; margin: 1.6em 0; border-radius: 18px; perspective: 1600px;
+}
+.diagram3d__card {
+  position: relative; border-radius: 18px; padding: 2.4rem 1rem 1rem; background:
+    linear-gradient(var(--md-default-bg-color), var(--md-default-bg-color)) padding-box,
+    var(--ng-grad) border-box;
+  border: 2px solid transparent; box-shadow: var(--depth-2), 0 18px 0 -10px rgba(123, 44, 191, .18);
+  transform: rotateX(3deg) translateZ(0); transform-origin: top center; transition: transform .4s ease, box-shadow .4s ease;
+  cursor: zoom-in;
+}
+.diagram3d:hover .diagram3d__card { transform: rotateX(0) translateY(-4px); box-shadow: var(--depth-3), 0 22px 0 -10px rgba(123, 44, 191, .22); }
+.diagram3d__bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 1.9rem; display: flex; align-items: center; gap: .5rem;
+  padding: 0 .7rem; border-radius: 16px 16px 0 0; background: var(--ng-grad); color: #fff; font-size: .68rem; font-weight: 700;
+  letter-spacing: .3px; z-index: 2;
+}
+.diagram3d__dots { display: inline-flex; gap: 5px; }
+.diagram3d__dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .55); display: block; }
+.diagram3d__label { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .95; }
+.diagram3d__btn {
+  border: 1px solid rgba(255, 255, 255, .55); background: rgba(255, 255, 255, .15); color: #fff; border-radius: 7px;
+  font: inherit; font-size: .66rem; padding: .15rem .55rem; cursor: pointer; line-height: 1.4;
+}
+.diagram3d__btn:hover, .diagram3d__btn:focus-visible { background: rgba(255, 255, 255, .32); outline: none; }
+.diagram3d .mermaid { margin: 0; display: block; width: 100%; overflow-x: auto; }
+.diagram3d__hint { position: absolute; right: .9rem; bottom: .5rem; font-size: .6rem; opacity: .55; pointer-events: none; }
+
+/* Expanded = full-screen viewer with zoom */
+body.diagram3d-open { overflow: hidden; }
+.md-typeset figure.diagram3d.is-expanded {
+  position: fixed; inset: 0; z-index: 1000; margin: 0; border-radius: 0; perspective: none;
+  background: rgba(8, 10, 24, .72); backdrop-filter: blur(6px); display: grid; place-items: center; padding: 3vh 3vw;
+  animation: d3-in .25s ease;
+}
+.diagram3d.is-expanded .diagram3d__card {
+  width: 100%; height: 100%; transform: none; cursor: grab; display: flex; flex-direction: column; padding: 2.6rem 0 0;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+}
+.diagram3d.is-expanded .diagram3d__card:active { cursor: grabbing; }
+.diagram3d.is-expanded .diagram3d__bar { height: 2.3rem; font-size: .74rem; }
+.diagram3d.is-expanded .diagram3d__viewport { flex: 1; overflow: auto; padding: 1.5rem; }
+.diagram3d.is-expanded .mermaid { overflow: visible; width: 100%; margin: 0 auto; }
+.diagram3d.is-expanded .diagram3d__hint { display: none; }
+.diagram3d__zoom { display: none; gap: .35rem; align-items: center; }
+.diagram3d.is-expanded .diagram3d__zoom { display: inline-flex; }
+.diagram3d__pct { min-width: 3.2em; text-align: center; font-variant-numeric: tabular-nums; }
+@keyframes d3-in { from { opacity: 0; transform: scale(.97); } }
+@media (prefers-reduced-motion: reduce) {
+  .diagram3d__card, .md-typeset table:not([class]) { transform: none !important; transition: none; }
+  .diagram3d.is-expanded { animation: none; }
+}
+@media print { .diagram3d__bar, .diagram3d__hint { display: none; } .diagram3d__card { transform: none; box-shadow: none; } }

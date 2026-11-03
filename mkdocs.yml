@@ -53,6 +53,7 @@ extra_css:
   - stylesheets/3d.css
 extra_javascript:
   - javascripts/tilt.js
+  - javascripts/diagrams.js
 
 plugins:
   - search
