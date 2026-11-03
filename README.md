@@ -4,6 +4,8 @@ A senior-engineer playbook for **Angular 17 → 22** (22.2 is the latest stable 
 site with a custom 3D theme. It covers every core and advanced topic with code, output, sequence diagrams and
 220+ interview questions, plus a **complete, tested food-delivery app**.
 
+📖 **Read the playbook online: https://khiruashish.github.io/angular-playbook/**
+
 ## What's here
 
 ```text
@@ -46,5 +48,7 @@ docker build --build-arg CONFIGURATION=production -t food-web . && docker run -p
 
 ## Publishing the site
 
-`.github/workflows/docs.yml` builds with `--strict` on every PR and deploys to **GitHub Pages** on pushes to `main`.
-To turn it on, go to repo **Settings → Pages → Source: GitHub Actions**.
+The site is live at **https://khiruashish.github.io/angular-playbook/**.
+
+`.github/workflows/docs.yml` builds with `--strict` on every PR and redeploys to **GitHub Pages** on pushes to `main`
+(Pages source is set to **GitHub Actions** in the repo settings). It can also be run manually from the Actions tab.
